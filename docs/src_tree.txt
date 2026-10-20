@@ -1,0 +1,35 @@
+﻿
+Name                  DirectoryName                                                                   
+----                  -------------                                                                   
+App.css               C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src                        
+App.tsx               C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src                        
+index.css             C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src                        
+main.tsx              C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src                        
+DemoScannerAdapter.ts C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\adapters               
+App.tsx               C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\app                    
+providers.tsx         C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\app                    
+router.tsx            C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\app                    
+hero.png              C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\assets                 
+react.svg             C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\assets                 
+vite.svg              C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\assets                 
+types.ts              C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\domain                 
+Admin.tsx             C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\administration
+Settings.tsx          C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\administration
+FindingDetail.tsx     C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\findings      
+Findings.tsx          C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\findings      
+Dashboard.tsx         C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\overview      
+LandingPage.tsx       C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\overview      
+NewProject.tsx        C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\projects      
+ProjectDetail.tsx     C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\projects      
+Projects.tsx          C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\projects      
+Remediation.tsx       C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\remediation   
+Retests.tsx           C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\remediation   
+ReportDetail.tsx      C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\reports       
+Reports.tsx           C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\reports       
+NewScan.tsx           C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\scans         
+ScanCenter.tsx        C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\scans         
+ScanDetail.tsx        C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\features\scans         
+utils.ts              C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\lib                    
+scanService.ts        C:\Users\R.NETHAJI\Downloads\ProofShield\proofshield\src\services               
+
+
