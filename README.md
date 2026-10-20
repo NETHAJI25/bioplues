@@ -8,110 +8,169 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
-## 1. Executive Summary
+## Executive Summary
 
-ProofShield (Bioplues) is a local-first, evidence-centric web application security assessment platform. It focuses on traceable findings, structured remediation, and retest verification. The repository provides a complete, runnable frontend plus a modular backend scaffold for future full-stack deployment.
+ProofShield (Bioplues) is a local-first, evidence-centric web application security assessment and remediation tracking platform. It enforces an "evidence over assumptions" workflow: every vulnerability finding is traceable to concrete artifacts (affected URL, HTTP method, evidence summary, impact, remediation, references, and timestamps), enabling developers and security reviewers to verify fixes through a structured retest process.
 
-## 2. Problem Statement
+## Problem Statement
 
-Fragmented security findings, missing evidence, and broken remediation loops make vulnerability tracking unreliable. ProofShield standardizes the workflow from discovery to verified fix with reproducible evidence attached to every finding.
+Security findings are often scattered across spreadsheets, chats, and tools with no traceability or verification loop. ProofShield addresses this by providing a unified, scoped workspace for projects, scans, findings, remediation, retests, and reports—designed for reproducible, responsible security assessments.
 
-## 3. Solution Overview
+## Solution Overview
 
 | Capability | Implementation | Status |
 | :-- | :-- | :-- |
-| Project & Scope Management | src/features/projects/ with routes in src/app/router.tsx | Implemented |
-| Security Scanning (Demo) | src/adapters/DemoScannerAdapter.ts, src/services/scanService.ts | Implemented |
-| Evidence-First Findings | src/domain/types.ts, src/features/findings/ | Implemented |
-| Remediation & Retests | src/features/remediation/ | Implemented |
-| Reports | src/features/reports/ | Implemented |
-| Admin/Settings | src/features/administration/ | Implemented |
-| Extensible Scanner Interface | Adapter pattern with ScanService | Implemented |
-| Backend Scaffold | server/ (Express, WS, routes, middleware, schema, utils) | Scaffolded |
+| Project & Scope Management | src/features/projects/ · src/app/router.tsx | **Implemented** |
+| Security Scanning (Demo Mode) | src/adapters/DemoScannerAdapter.ts · src/services/scanService.ts | **Implemented** |
+| Evidence-First Findings | src/domain/types.ts · src/features/findings/ | **Implemented** |
+| Remediation Tracking | src/features/remediation/Remediation.tsx | **Implemented** |
+| Retests & Verification | src/features/remediation/Retests.tsx | **Implemented** |
+| Reporting | src/features/reports/ | **Implemented** |
+| Administration & Settings | src/features/administration/ | **Implemented** |
+| Scanner Abstraction Layer | Adapter pattern (IScanner-style) via ScanService | **Implemented** |
+| Modular Backend Scaffold | server/ (Express, WebSocket, routes, middleware, RBAC, schema, utils) | **Scaffolded** |
 
-## 4. Quick Start
+## Feature-to-Code Mapping
+
+| Feature Area | Key Files / Modules | Purpose |
+| :-- | :-- | :-- |
+| **App Shell & Routing** | src/app/App.tsx, src/app/router.tsx, src/app/providers.tsx | Root layout, route definitions, global state (demo mode, projects, scans, findings) |
+| **Overview (Landing/Dashboard)** | src/features/overview/LandingPage.tsx, src/features/overview/Dashboard.tsx | Product overview, KPIs, activity summary |
+| **Projects** | src/features/projects/Projects.tsx, src/features/projects/NewProject.tsx, src/features/projects/ProjectDetail.tsx | Create/manage projects, scope configuration surfaces |
+| **Scans** | src/features/scans/ScanCenter.tsx, src/features/scans/NewScan.tsx, src/features/scans/ScanDetail.tsx | Scan lifecycle, progress, endpoints/logs views |
+| **Findings** | src/features/findings/Findings.tsx, src/features/findings/FindingDetail.tsx | Evidence-first listing and detailed finding view |
+| **Remediation & Retests** | src/features/remediation/Remediation.tsx, src/features/remediation/Retests.tsx | Fix tracking and verification workflow |
+| **Reports** | src/features/reports/Reports.tsx, src/features/reports/ReportDetail.tsx | Report listing and detailed report view |
+| **Admin & Settings** | src/features/administration/Admin.tsx, src/features/administration/Settings.tsx | Platform configuration surfaces |
+| **Domain & Services** | src/domain/types.ts, src/services/scanService.ts | Canonical types and scan orchestration |
+| **Scanner Adapters** | src/adapters/DemoScannerAdapter.ts | Safe, deterministic demo scanner implementation |
+| **Backend Scaffold** | server/index.ts, server/routes/, server/middleware/, server/db/schema.ts, server/websocket/, server/utils/, server/types/ | Auth/RBAC, rate-limiting, audit, validation, real-time events, data model |
+
+## Architecture
+
+`	ext
+bioplues/
+├── src/                # Frontend (React + TypeScript + Vite)
+│   ├── app/            # Shell, router, providers
+│   ├── features/       # Feature modules by domain
+│   ├── adapters/       # Scanner adapters
+│   ├── services/       # Business logic/services
+│   ├── domain/         # Shared domain types
+│   ├── components/     # Shared UI components
+│   └── lib/            # Utilities
+├── server/             # Backend scaffold (Express + WebSocket)
+├── public/             # Static assets
+├── index.html
+├── package.json
+├── vite.config.ts
+├── tailwind.config.js
+└── tsconfig*.json
+`
+
+## Technology Stack
+
+| Layer | Technologies | Purpose |
+| :-- | :-- | :-- |
+| **Frontend** | React 19, TypeScript, Vite 8, React Router DOM 7 | UI, routing, build tooling |
+| **Styling** | Tailwind CSS v4, @tailwindcss/vite | Modern, responsive UI |
+| **UI Components/UX** | lucide-react, framer-motion, sonner, cmdk, vaul | Icons, animations, toasts, palettes, drawers |
+| **State & Forms** | zustand, react-hook-form, @hookform/resolvers, zod | State management, validation, forms |
+| **Data/Utilities** | axios, date-fns, clsx, tailwind-merge | HTTP, dates, class utilities |
+| **Visualization/Editors** | recharts, @monaco-editor/react, react-markdown, remark-gfm | Charts, editor, markdown rendering |
+| **Export** | html2canvas, jspdf | Report/export groundwork |
+| **Backend (Scaffold)** | Express, ws, helmet, cors, compression, morgan, express-rate-limit, jsonwebtoken, bcryptjs, drizzle-orm, better-sqlite3, uuid | API, auth, realtime, schema, security |
+| **Tooling** | oxlint, postcss, autoprefixer | Linting, CSS processing |
+
+## Installation & Setup
 
 ### Prerequisites
-- Node.js v18+
-- npm v9+
 
-### Install & Run
+- [Node.js](https://nodejs.org/) **v18 or higher**
+- [npm](https://www.npmjs.com/) **v9 or higher**
+
+### Steps
 
 `ash
+# 1) Clone the repository
 git clone https://github.com/NETHAJI25/bioplues.git
 cd bioplues
+
+# 2) Install dependencies
 npm install
+
+# 3) Start development server
 npm run dev
 `
 
-Open [http://localhost:5173](http://localhost:5173). Demo mode is enabled by default with sample data.
+The application will be available at: **[http://localhost:5173](http://localhost:5173)**
 
-### Build & Lint
+### Production
 
 `ash
+# Build
 npm run build
-npm run lint
+
+# Preview production build
 npm run preview
 `
 
-## 5. Architecture
+### Linting
 
-`	ext
-src/        -> React + TypeScript UI (features, app, adapters, services, domain)
-server/     -> Express + WebSocket scaffold (routes, middleware, db/schema, types, utils)
-public/     -> Static assets
-dist/       -> Production build output
+`ash
+npm run lint
 `
 
-## 6. Feature-to-Code Mapping
+## Usage
 
-| Feature | Source Files | Verification |
-| :-- | :-- | :-- |
-| Routing/App Shell | src/app/App.tsx, src/app/router.tsx, src/app/providers.tsx | Navigate all routes |
-| Dashboard/Landing | src/features/overview/ | Load / and /dashboard |
-| Projects | src/features/projects/ | Load /projects |
-| Scans | src/features/scans/ | Load /scans, /scans/new |
-| Findings | src/features/findings/ | Load /findings, open a finding detail |
-| Remediation/Retests | src/features/remediation/ | Load /remediation, /retests |
-| Reports | src/features/reports/ | Load /reports |
-| Admin/Settings | src/features/administration/ | Load /settings, /admin |
-| Scanner Engine | src/adapters/DemoScannerAdapter.ts, src/services/scanService.ts | Inspect demo data flow |
-| Backend Scaffold | server/ | Inspect modules/middleware/routes/schema |
+1. **Landing Page** (/) – Project overview and entry point
+2. **Dashboard** (/dashboard) – Security posture summary (demo data loaded by default)
+3. **Projects** (/projects) – Manage assessment projects
+4. **Scans** (/scans) / **New Scan** (/scans/new) – Configure and review scans
+5. **Findings** (/findings) – Browse evidence-backed findings; open details for full context
+6. **Remediation** (/remediation) – Track fixes in progress
+7. **Retests** (/retests) – Verify remediated findings
+8. **Reports** (/reports) – Review assessment reports
+9. **Settings** (/settings) / **Admin** (/admin) – Configuration surfaces
 
-## 7. Technology Stack
+**Demo Mode:** Enabled by default. A sample project (*"Sample Store — Security Training Lab"*) with pre-populated findings is loaded on first run for immediate, reproducible evaluation.
 
-- **Frontend:** React 19, TypeScript, Vite 8, React Router 7, Tailwind CSS v4
-- **UI:** lucide-react, framer-motion, sonner, recharts, monaco-editor
-- **State/Forms:** zustand, react-hook-form, zod
-- **Backend (Scaffold):** Express, ws, helmet, cors, drizzle-orm, better-sqlite3, jsonwebtoken, zod
-- **Tooling:** oxlint
-
-## 8. Evaluator Quick-Verification Guide
+## Evaluator Quick-Verification Guide
 
 | Criterion | Evidence | Verification |
 | :-- | :-- | :-- |
-| Feature completeness | Feature-to-code mapping (Section 6) | Inspect linked modules in src/ and server/ |
-| Reproducibility | package.json scripts + demo data in src/app/providers.tsx / src/adapters/DemoScannerAdapter.ts | Run 
-pm install && npm run dev |
-| Model performance | Rule-based/demo platform (no trained weights) | Deterministic demo behavior; logic in adapters/services is inspectable |
-| Testing | Manual reproducible walkthrough (Section 4) | Execute documented commands and navigate routes |
-| Limitations | Section 9 | Review known issues and unsupported features |
+| **Feature completeness** | src/app/router.tsx and all src/features/* modules listed in the Feature-to-Code Mapping | Inspect linked modules; run 
+pm run dev and navigate all routes. |
+| **Reproducibility** | package.json scripts, src/app/providers.tsx (demo data), src/adapters/DemoScannerAdapter.ts (deterministic findings) | Run 
+pm install && npm run dev from a clean clone. Demo state is reproducible with no external services required. |
+| **Model performance** | Rule-based/demo platform (no trained ML weights included). Deterministic adapter logic in src/adapters/DemoScannerAdapter.ts and src/services/scanService.ts. | Review adapter logic and observe consistent, deterministic results across runs. (Not applicable as a trainable model checkpoint.) |
+| **Testing** | Manual, reproducible walkthrough above + TypeScript build/lint checks | Execute 
+pm run build and 
+pm run lint. Follow the Usage section to validate routes and workflows. |
+| **Limitations** | [Limitations & Known Issues](#limitations--known-issues) | Review the limitations section below to distinguish implemented features from scaffolds/prototypes and known gaps. |
 
 **Scoring guidance:** Evaluate each criterion independently using the competition rubric. Award credit only for claims supported by reproducible evidence. Distinguish implemented features from prototypes and planned work.
 
-## 9. Limitations & Known Issues
+## Limitations & Known Issues
 
 | Item | Type | Notes |
 | :-- | :-- | :-- |
-| Live network scanning | Known Limitation | Uses DemoScannerAdapter (simulated). No default active external scanning. |
-| Persistent storage | Known Limitation | Frontend uses in-memory/demo state. DB schema exists in server/db/ but not wired to persistent runtime by default. |
-| Backend runtime | Known Limitation | server/ is a structured scaffold (not required to run the frontend demo). |
-| Authentication | Known Limitation | Auth primitives exist in scaffold; full UI auth flow not fully wired in current demo. |
-| Automated tests | Known Limitation | No configured unit/integration/E2E test suite at present. |
-| Exports | Prototype/Partial | Export libraries present; full PDF/CSV/SARIF export flows can be extended. |
+| **Live Network Scanning** | Known Limitation | Uses the DemoScannerAdapter (simulated). No active external scanning is executed by default. |
+| **Persistent Storage** | Known Limitation | Frontend state is in-memory/demo. A full schema is present in server/db/schema.ts but not wired to a required runtime DB for the default frontend demo. |
+| **Backend Runtime** | Known Limitation | The server/ directory is a structured, modular scaffold (routes, middleware, auth/RBAC, WebSocket, utils). It is not required to run the frontend in demo mode. |
+| **Authentication** | Known Limitation | Auth/RBAC primitives exist in the backend scaffold; a fully integrated end-to-end auth UI flow is not fully wired in the current demo. |
+| **Automated Test Suite** | Known Limitation | No unit/integration/E2E test runner is configured at this time. Reproducibility is demonstrated via build, lint, and manual walkthrough. |
+| **Report Exports** | Prototype/Partial | html2canvas and jspdf are installed; full PDF/JSON/CSV/SARIF export flows can be extended. |
 
-## 10. License
+## Security Note
 
-MIT License - see [LICENSE](LICENSE) for details.
+This project is designed for **authorized security assessments only**. The demo mode uses simulated data with no automatic active exploitation. If extended to real scanning, strict scope enforcement, rate-limiting, proper authentication/authorization, and audit logging should be enforced.
+
+## Contributing
+
+Contributions are welcome. Please follow the existing feature-sliced structure, keep types strict, and update documentation when adding features.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
 
 **Repository:** [https://github.com/NETHAJI25/bioplues](https://github.com/NETHAJI25/bioplues)
